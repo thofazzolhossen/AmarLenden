@@ -8,5 +8,6 @@ namespace AmarLendenAPI.Data
         public AppDbContext(DbContextOptions options) : base(options) { }
 
         public DbSet<Budget> Budgets { get; set; }
+        public DbSet<Account> Accounts { get; set; }
     }
 }
