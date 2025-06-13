@@ -14,6 +14,14 @@ namespace AmarLendenAPI.Mappings
 
             CreateMap<Account, AccountDto>().ReverseMap();
             CreateMap<AccountVM, Account>();
+
+            CreateMap<Voucher, VoucherDto>().ReverseMap();
+            CreateMap<VoucherLine, VoucherLineDto>().ReverseMap();
+
+            CreateMap<VoucherVM, Voucher>();
+            CreateMap<VoucherLineVM, VoucherLine>();
+
+
         }
     }
 }
