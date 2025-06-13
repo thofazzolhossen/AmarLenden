@@ -11,6 +11,9 @@ namespace AmarLendenAPI.Mappings
         {
             CreateMap<Budget, BudgetDto>().ReverseMap();
             CreateMap<BudgetVM, Budget>();
+
+            CreateMap<Account, AccountDto>().ReverseMap();
+            CreateMap<AccountVM, Account>();
         }
     }
 }
