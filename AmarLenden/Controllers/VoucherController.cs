@@ -1,7 +1,6 @@
 ﻿using AmarLenden.DTOs;
 using AmarLenden.Interfaces;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AmarLenden.Controllers
@@ -23,6 +22,13 @@ namespace AmarLenden.Controllers
         {
             var vouchers = await _repo.GetAllAsync();
             return Ok(_mapper.Map<IEnumerable<VoucherDto>>(vouchers));
+        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<VoucherDto>> GetById(int id)
+        {
+            var voucher = await _repo.GetByIdAsync(id);
+            if (voucher == null) return NotFound();
+            return Ok(_mapper.Map<VoucherDto>(voucher));
         }
     }
 }
