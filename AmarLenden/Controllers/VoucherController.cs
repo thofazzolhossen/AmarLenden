@@ -40,6 +40,18 @@ namespace AmarLenden.Controllers
             await _repo.SaveAsync();
             return CreatedAtAction(nameof(GetById), new { id = voucher.Id }, _mapper.Map<VoucherDto>(voucher));
         }
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(int id, VoucherVM model)
+        {
+            var existing = await _repo.GetByIdAsync(id);
+            if (existing == null) return NotFound();
+
+            _mapper.Map(model, existing);
+            _repo.Update(existing);
+            await _repo.SaveAsync();
+            return NoContent();
+        }
+
 
     }
 }
