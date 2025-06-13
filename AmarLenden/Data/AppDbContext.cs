@@ -9,5 +9,9 @@ namespace AmarLendenAPI.Data
 
         public DbSet<Budget> Budgets { get; set; }
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<Voucher> Vouchers { get; set; }
+        public DbSet<VoucherLine> VoucherLines { get; set; }
+
+
     }
 }
