@@ -1,12 +1,9 @@
-﻿namespace AmarLenden.Model
+﻿namespace AmarLenden.DTOs
 {
-    public class VoucherLine
+    public class VoucherLineDto
     {
-        public int Id { get; set; }
-        public int VoucherId { get; set; }
         public string? AccountName { get; set; }
         public decimal Debit { get; set; }
         public decimal Credit { get; set; }
     }
-
 }
