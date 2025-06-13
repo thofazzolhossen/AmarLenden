@@ -51,7 +51,16 @@ namespace AmarLenden.Controllers
             await _repo.SaveAsync();
             return NoContent();
         }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var existing = await _repo.GetByIdAsync(id);
+            if (existing == null) return NotFound();
 
+            _repo.Delete(existing);
+            await _repo.SaveAsync();
+            return NoContent();
+        }
 
     }
 }
