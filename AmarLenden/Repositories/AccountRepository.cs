@@ -1,5 +1,4 @@
-﻿using AmarLenden.Interfaces;
-using AmarLenden.Model;
+﻿using AmarLenden.Model;
 using AmarLenden.Repositories;
 using AmarLendenAPI.Data;
 using AmarLendenAPI.Interfaces;
