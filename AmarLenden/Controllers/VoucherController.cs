@@ -22,16 +22,18 @@ namespace AmarLenden.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<VoucherDto>>> GetAll()
         {
-            var vouchers = await _repo.GetAllAsync();
+            var vouchers = await _repo.GetAllWithLinesAsync();
             return Ok(_mapper.Map<IEnumerable<VoucherDto>>(vouchers));
         }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<VoucherDto>> GetById(int id)
         {
-            var voucher = await _repo.GetByIdAsync(id);
+            var voucher = await _repo.GetByIdWithLinesAsync(id);
             if (voucher == null) return NotFound();
             return Ok(_mapper.Map<VoucherDto>(voucher));
         }
+
         [HttpPost]
         public async Task<ActionResult> Create(VoucherVM model)
         {
@@ -43,14 +45,26 @@ namespace AmarLenden.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Update(int id, VoucherVM model)
         {
-            var existing = await _repo.GetByIdAsync(id);
+            var existing = await _repo.GetByIdWithLinesAsync(id);
             if (existing == null) return NotFound();
 
+            existing.Lines.Clear();
+            foreach (var line in model.Lines)
+            {
+                existing.Lines.Add(new VoucherLine
+                {
+                    AccountName = line.AccountName,
+                    Debit = line.Debit,
+                    Credit = line.Credit
+                });
+            }
             _mapper.Map(model, existing);
+
             _repo.Update(existing);
             await _repo.SaveAsync();
             return NoContent();
         }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
