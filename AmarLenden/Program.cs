@@ -15,6 +15,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Dependency injection
 builder.Services.AddScoped(typeof(IBasicRepository<>), typeof(BasicRepository<>));
 builder.Services.AddScoped<IBudgetRepository, BudgetRepository>();
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 
 // AutoMapper
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));

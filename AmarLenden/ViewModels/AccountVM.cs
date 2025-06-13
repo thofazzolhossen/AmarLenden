@@ -1,12 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AmarLenden.Model
+namespace AmarLenden.ViewModels
 {
-    public class Account
+    public class AccountVM
     {
-        public int Id { get; set; }
         [Required]
         public string? AccountName { get; set; }
-
     }
 }
