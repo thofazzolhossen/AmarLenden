@@ -1,5 +1,7 @@
 ﻿using AmarLenden.DTOs;
 using AmarLenden.Interfaces;
+using AmarLenden.Model;
+using AmarLenden.ViewModels;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,5 +32,14 @@ namespace AmarLenden.Controllers
             if (voucher == null) return NotFound();
             return Ok(_mapper.Map<VoucherDto>(voucher));
         }
+        [HttpPost]
+        public async Task<ActionResult> Create(VoucherVM model)
+        {
+            var voucher = _mapper.Map<Voucher>(model);
+            await _repo.AddAsync(voucher);
+            await _repo.SaveAsync();
+            return CreatedAtAction(nameof(GetById), new { id = voucher.Id }, _mapper.Map<VoucherDto>(voucher));
+        }
+
     }
 }
