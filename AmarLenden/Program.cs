@@ -1,15 +1,26 @@
 using AmarLenden.Interfaces;
+using AmarLenden.Model;
 using AmarLenden.Repositories;
 using AmarLendenAPI.Data;
 using AmarLendenAPI.Interfaces;
 using AmarLendenAPI.Mappings;
 using AmarLendenAPI.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequiredLength = 6;
+    options.Password.RequireNonAlphanumeric = false;
+});
 
 
 builder.Services.AddScoped(typeof(IBasicRepository<>), typeof(BasicRepository<>));
@@ -50,9 +61,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors("AllowAll"); // Use named CORS policy
+app.UseCors("AllowAll");
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers();
 
