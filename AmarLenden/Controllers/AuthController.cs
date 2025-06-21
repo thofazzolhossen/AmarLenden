@@ -40,7 +40,7 @@ namespace AmarLenden.Controllers
 
             return BadRequest(ModelState);
         }
-
+        //Use Paggination 
         [HttpGet("users")]
         public IActionResult GetAllUsers(int pageNumber = 1, int pageSize = 10)
         {
